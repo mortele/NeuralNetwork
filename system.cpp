@@ -1,4 +1,5 @@
 #include "system.h"
+#include "RandomNumberGenerator/random.h"
 #include "neuron.h"
 #include "vectorlookup.h"
 
@@ -16,8 +17,10 @@ System::System(int hiddenLayers,
     m_hiddenLayers          = hiddenLayers;
     m_inputs                = inputs;
     m_outputs               = outputs;
-
+    Random::seed(m_seed);
     setupLayers();
+    randomizeAllWeights();
+    clearNeurons();
 }
 
 void System::setupLayers() {
@@ -39,8 +42,57 @@ void System::setupLayers() {
     }
 }
 
-double System::propagate(vector<double> input) {
+void System::randomizeAllWeights() {
+    for (int i=0; i<m_layers.size(); i++) {
+        for (int j=0; j<at(m_layers, i).size(); j++) {
+            at(at(m_layers, i), j)->randomizeWeights();
+        }
+    }
+}
 
+void System::clearNeurons() {
+    for (int i=0; i<m_layers.size(); i++) {
+        for (int j=0; j<at(m_layers, i).size(); j++) {
+            at(at(m_layers, i), j)->clear();
+        }
+    }
+}
+
+void System::propagateLayer(int index) {
+    for (int j=0; j<at(m_layers, index-1).size(); j++) {
+        at(at(m_layers, index-1), j)->propagateToNextLayer();
+    }
+    for (int j=0; j<at(m_layers, index).size(); j++) {
+        at(at(m_layers, index), j)->computeTransferFunction();
+    }
+}
+
+void System::setInput(vector<double> input) {
+    for (int j=0; j<m_inputs; j++) {
+        at(at(m_layers, 0), j)->addInput(at(input, j));
+        at(at(m_layers, 0), j)->computeTransferFunction();
+    }
+}
+
+vector<double> System::computeOutput() {
+    m_output.reserve(m_outputs);
+    const int index = m_layers.size();
+    for (int j=0; j<at(m_layers, index-1).size(); j++) {
+        at(at(m_layers, index-1), j)->propagateToNextLayer();
+    }
+    for (int j=0; j<m_outputs; j++) {
+        m_output.push_back(at(at(m_layers, index), j)->getOutput());
+    }
+    return m_output;
+}
+
+vector<double> System::compute(vector<double> input) {
+    clearNeurons();
+    setInput(input);
+    for (int i=1; m_layers.size()-1; i++) {
+        propagateLayer(i);
+    }
+    return computeOutput();
 }
 
 

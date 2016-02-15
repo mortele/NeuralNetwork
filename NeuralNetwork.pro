@@ -16,4 +16,5 @@ LIBS += -lblas -llapack
 HEADERS += \
     neuron.h \
     vectorlookup.h \
-    system.h
+    system.h \
+    RandomNumberGenerator/random.h
