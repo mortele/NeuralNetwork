@@ -6,7 +6,9 @@
 
 class System {
 public:
-    System(int numberOfLayers, int neuronsInEachLayer, int numberOfInputs, int numberOfOutputs);
+    System(int, int, int, int);
+    void    setupLayers();
+    double  propagate(vector<double> input);
 
 private:
     int m_hiddenLayers          = 0;

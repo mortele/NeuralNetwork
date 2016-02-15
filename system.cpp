@@ -16,6 +16,11 @@ System::System(int hiddenLayers,
     m_hiddenLayers          = hiddenLayers;
     m_inputs                = inputs;
     m_outputs               = outputs;
+
+    setupLayers();
+}
+
+void System::setupLayers() {
     m_layers.resize(m_hiddenLayers+2, vector<Neuron*>());
 
     for (int j=0; j<m_inputs; j++) {
@@ -32,6 +37,10 @@ System::System(int hiddenLayers,
     for (int j=0; j<m_outputs; j++) {
         at(m_layers, m_hiddenLayers+1).push_back(new Neuron(0));
     }
+}
+
+double System::propagate(vector<double> input) {
+
 }
 
 

@@ -10,10 +10,7 @@ int main() {
     int inputs              = 2;
     int outputs             = 1;
 
-    System* system = new System(hiddenLayers,
-                                neuronsInEachLayer,
-                                inputs,
-                                outputs);
+    System* system = new System(hiddenLayers,neuronsInEachLayer,inputs,outputs);
 
     return 0;
 }
