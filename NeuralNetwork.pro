@@ -8,7 +8,13 @@ QMAKE_CXXFLAGS_RELEASE  += -O3 -xHost -fno-alias -ansi-alias -restrict -override
 SOURCES += \
     main.cpp \
     neuron.cpp \
-    system.cpp
+    system.cpp \
+    Networks/network.cpp \
+    examples.cpp \
+    Networks/singleperceptron.cpp \
+    ActivationFunctions/activationfunction.cpp \
+    ActivationFunctions/noactivation.cpp \
+    ActivationFunctions/perceptron.cpp
 
 INCLUDEPATH += /usr/local/Cellar/armadillo/6.200.4/include
 LIBS += -lblas -llapack
@@ -17,4 +23,10 @@ HEADERS += \
     neuron.h \
     vectorlookup.h \
     system.h \
-    RandomNumberGenerator/random.h
+    RandomNumberGenerator/random.h \
+    Networks/network.h \
+    examples.h \
+    Networks/singleperceptron.h \
+    ActivationFunctions/activationfunction.h \
+    ActivationFunctions/noactivation.h \
+    ActivationFunctions/perceptron.h

@@ -5,7 +5,7 @@ using std::vector;
 
 class Neuron {
 public:
-    Neuron(int neuronsInNextLayer);
+    Neuron(class System* system, int neuronsInNextLayer);
 
     void addInput(double input);
     void computeTransferFunction();
@@ -21,6 +21,7 @@ private:
     int                 m_neuronsInNextLayer    = 0;
     double              m_totalInput            = 0;
     double              m_output                = 0;
+    class System*       m_system                = nullptr;
     vector<double>      m_weights;
 };
 

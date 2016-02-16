@@ -5,7 +5,8 @@
 
 using std::exp;
 
-Neuron::Neuron(int neuronsInNextLayer) {
+Neuron::Neuron(System* system, int neuronsInNextLayer) {
+    m_system = system;
     m_neuronsInNextLayer = neuronsInNextLayer;
     m_weights.reserve(m_neuronsInNextLayer);
 }
