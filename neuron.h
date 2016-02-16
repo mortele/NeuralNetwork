@@ -11,8 +11,11 @@ public:
     void computeTransferFunction();
     void clear();
     void randomizeWeights();
-    double propagateToNextLayer();
-    double getOutput();
+    void propagateLastLayer();
+    double propagateToNextLayer(int index);
+    double getInput()  { return m_totalInput; }
+    double getOutput() { return m_output; }
+    vector<double>& getWeights() { return m_weights; }
 
 private:
     int                 m_neuronsInNextLayer    = 0;

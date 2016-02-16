@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <iomanip>
 
 
 class System {
@@ -11,6 +12,7 @@ public:
     void clearNeurons();
     void propagateLayer(int index);
     void setInput(std::vector<double> input);
+    void printNetwork();
     std::vector<double> computeOutput();
     std::vector<double> compute(std::vector<double> input);
 

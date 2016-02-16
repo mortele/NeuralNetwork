@@ -18,14 +18,8 @@ void Neuron::computeTransferFunction() {
     m_output = 1.0 / (1 + exp(-m_totalInput));
 }
 
-double Neuron::propagateToNextLayer() {
-    for (int j=0; j<m_weights.size(); j++) {
-        return m_output * at(m_weights, j);
-    }
-}
-
-double Neuron::getOutput() {
-    return m_totalInput;
+double Neuron::propagateToNextLayer(int index) {
+    return m_output * at(m_weights, index);
 }
 
 void Neuron::clear() {
@@ -38,5 +32,9 @@ void Neuron::randomizeWeights() {
     for (int i=0; i<m_neuronsInNextLayer; i++) {
         m_weights.push_back(Random::nextGaussian(0.0, 1.0));
     }
+}
+
+void Neuron::propagateLastLayer() {
+    m_output = m_totalInput;
 }
 
