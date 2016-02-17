@@ -14,7 +14,8 @@ SOURCES += \
     Networks/singleperceptron.cpp \
     ActivationFunctions/activationfunction.cpp \
     ActivationFunctions/noactivation.cpp \
-    ActivationFunctions/perceptron.cpp
+    ActivationFunctions/perceptron.cpp \
+    LearningAlgorithms/learningalgorithm.cpp
 
 INCLUDEPATH += /usr/local/Cellar/armadillo/6.200.4/include
 LIBS += -lblas -llapack
@@ -29,4 +30,5 @@ HEADERS += \
     Networks/singleperceptron.h \
     ActivationFunctions/activationfunction.h \
     ActivationFunctions/noactivation.h \
-    ActivationFunctions/perceptron.h
+    ActivationFunctions/perceptron.h \
+    LearningAlgorithms/learningalgorithm.h

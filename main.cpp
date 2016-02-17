@@ -8,8 +8,5 @@
 using namespace std;
 
 int main() {
-    int r = Examples::singlePerceptron();
-
-    cout << r << endl;
-    return r;
+    return Examples::singlePerceptron();
 }

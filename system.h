@@ -7,25 +7,15 @@
 class System {
 public:
     System();
-    void setupLayers();
-    void randomizeAllWeights();
-    void clearNeurons();
-    void propagateLayer(int index);
-    void setInput(std::vector<double> input);
+    System(int seed);
     void printNetwork();
     void setNetwork(class Network* network);
-    std::vector<double> computeOutput();
+    void setLearningAlgorithm(class LearningAlgorithm* learningAlgorithm);
     std::vector<double> compute(std::vector<double> input);
 
 private:
-    int m_seed                  = 1;
-    int m_hiddenLayers          = 0;
-    int m_neuronsInEachLayer    = 0;
-    int m_inputs                = 0;
-    int m_outputs               = 0;
-    std::vector<double> m_output;
-    std::vector<std::vector<class Neuron*>> m_layers;
-
-    class Network* m_network = nullptr;
+    int                         m_seed              = 1;
+    class Network*              m_network           = nullptr;
+    class LearningAlgorithm*    m_learningAlgorithm = nullptr;
 };
 

@@ -1,16 +1,19 @@
 #include "examples.h"
+#include <iostream>
+#include <vector>
 #include "system.h"
 #include "Networks/network.h"
 #include "Networks/singleperceptron.h"
 
-int Examples::singlePerceptron() {
-//    int hiddenLayers        = 1;
-//    int neuronsInEachLayer  = 2;
-//    int inputs              = 1;
-//    int outputs             = 1;
-//    vector<double> input    = {0.5};
+using std::vector;
+using std::cout;
+using std::endl;
 
-    System* system = new System();
+
+int Examples::singlePerceptron() {
+    System* system = new System(10);
     system->setNetwork(new SinglePerceptron(system));
+    vector<double> output = system->compute(vector<double>{1,2});
+    system->printNetwork();
     return 0;
 }

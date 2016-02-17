@@ -1,14 +1,16 @@
 #include "neuron.h"
 #include <cmath>
 #include "vectorlookup.h"
+#include "system.h"
 #include "RandomNumberGenerator/random.h"
+#include "ActivationFunctions/activationfunction.h"
 
 using std::exp;
 
 Neuron::Neuron(System* system, int neuronsInNextLayer) {
     m_system = system;
     m_neuronsInNextLayer = neuronsInNextLayer;
-    m_weights.reserve(m_neuronsInNextLayer);
+    m_weights.resize(m_neuronsInNextLayer);
 }
 
 void Neuron::addInput(double input) {
@@ -16,7 +18,7 @@ void Neuron::addInput(double input) {
 }
 
 void Neuron::computeTransferFunction() {
-    m_output = 1.0 / (1 + exp(-m_totalInput));
+    m_output = m_activationFunction->evaluate(m_totalInput);
 }
 
 double Neuron::propagateToNextLayer(int index) {
@@ -37,5 +39,13 @@ void Neuron::randomizeWeights() {
 
 void Neuron::propagateLastLayer() {
     m_output = m_totalInput;
+}
+
+void Neuron::setWeight(double weight, int index) {
+    at(m_weights, index) = weight;
+}
+
+void Neuron::setActivationFunction(ActivationFunction* activationFunction) {
+    m_activationFunction = activationFunction;
 }
 

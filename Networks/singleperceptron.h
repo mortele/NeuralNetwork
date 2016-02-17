@@ -3,8 +3,7 @@
 
 class SinglePerceptron : public Network {
 public:
-    SinglePerceptron(class System*);
+    SinglePerceptron(class System* system);
     std::vector<double> evaluate(std::vector<double> input);
-
 };
 
