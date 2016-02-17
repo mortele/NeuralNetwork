@@ -38,7 +38,7 @@ void Neuron::randomizeWeights() {
 }
 
 void Neuron::propagateLastLayer() {
-    m_output = m_totalInput;
+    m_output = m_activationFunction->evaluate(m_totalInput);
 }
 
 void Neuron::setWeight(double weight, int index) {

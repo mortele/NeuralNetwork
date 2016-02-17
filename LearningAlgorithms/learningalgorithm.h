@@ -3,6 +3,7 @@
 class LearningAlgorithm {
 public:
     virtual void learn(int numberOfExamples) = 0;
+    virtual void runTests(int numberOfExamples) = 0;
     void setNetwork(class Network* network);
     void setErrorFunction(class ErrorFunction* errorFunction);
     void setExampleGenerator(class ExampleGenerator* exampleGenerator);

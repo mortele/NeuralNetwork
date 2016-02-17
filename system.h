@@ -10,6 +10,7 @@ public:
     System(int seed);
     void printNetwork();
     void learn(int numberOfExamples);
+    void runTests(int numberOfExamples);
     void setNetwork(class Network* network);
     void setLearningAlgorithm(class LearningAlgorithm* learningAlgorithm);
     void setErrorFunction(class ErrorFunction* errorFunction);

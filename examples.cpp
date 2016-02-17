@@ -22,12 +22,11 @@ int Examples::singlePerceptron() {
     system->setLearningAlgorithm(new SupervisedErrorCorrection());
     system->setErrorFunction(new StepFunction());
     system->setExampleGenerator(new RandomUniform(2,-1,1));
-    system->learn(10);
-
-    vector<double> output = system->compute(vector<double>{1,2});
+    system->compute(std::vector<double>{-1.0, 1.5});
     system->printNetwork();
-
-    cout << "Network output: " << at(output, 0) << endl;
+    system->runTests((int) 1e3);
+    system->learn((int) 1e4);
+    system->runTests((int) 1e3);
     return 0;
 }
 

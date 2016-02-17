@@ -4,6 +4,6 @@
 class Perceptron : public ActivationFunction {
 public:
     Perceptron(class System* system);
-    double evaluate(double input) { return ((input+m_bias)>0 ? 1 : -1); }
+    double evaluate(double input) { return ((input+m_bias)>=0 ? 1.0 : -1.0); }
 };
 

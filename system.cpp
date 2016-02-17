@@ -30,6 +30,7 @@ void System::learn(int numberOfExamples) {
 }
 
 void System::runTests(int numberOfExamples) {
+    m_learningAlgorithm->runTests(numberOfExamples);
 }
 
 void System::setNetwork(Network* network) {
