@@ -45,6 +45,10 @@ void Neuron::setWeight(double weight, int index) {
     at(m_weights, index) = weight;
 }
 
+void Neuron::adjustWeight(double dWeight, int index) {
+    at(m_weights, index) += dWeight;
+}
+
 void Neuron::setActivationFunction(ActivationFunction* activationFunction) {
     m_activationFunction = activationFunction;
 }

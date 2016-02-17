@@ -11,16 +11,18 @@ class Network {
 public:
     Network(class System*, int, int, int, int);
 
-    vector<double>                  evaluate(vector<double>);
+    virtual vector<double>          evaluate(vector<double>);
     void                            setWeightsForAllNeurons();
     void                            printNetwork();
     void                            setInput(vector<double> input);
     void                            clearAllNeurons();
     void                            setupLayers();
     void                            propagateLayer(int index);
-    vector<double>                  computeOutput();
-    vector<class Neuron*>           getLayer(int index) { return at(m_layers, index); }
-    vector<vector<class Neuron*>>   getNeurons()        { return m_layers; }
+    int                             getNumberOfInputs()     { return m_inputs; }
+    int                             getNumberOfOutputs()    { return m_outputs; }
+    vector<double>&                 computeOutput();
+    vector<class Neuron*>&          getLayer(int index)     { return at(m_layers, index); }
+    vector<vector<class Neuron*>>&  getNeurons()            { return m_layers; }
 
 protected:
     int                             m_outputs           = 0;

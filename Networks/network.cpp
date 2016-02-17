@@ -94,7 +94,7 @@ void Network::setWeightsForAllNeurons() {
 }
 
 void Network::printNetwork() {
-    cout << " -- NETWORK WEIGHTS --" << endl << endl;
+    cout << " -- NETWORK --" << endl << endl;
     for (int i=0; i<m_layers.size(); i++) {
         cout << "Layer #" << i << endl;
         for (int j=0; j<at(m_layers, i).size(); j++) {
@@ -103,10 +103,12 @@ void Network::printNetwork() {
             cout << "   input:  " << setw(6) << setprecision(4) << neuron->getInput();
             cout << "   output: " << setw(6) << setprecision(4) << neuron->getOutput() << endl;
             for (int k=0; k<neuron->getWeights().size(); k++) {
-                cout << "     " << k << " : " << at(neuron->getWeights(), k) << endl;
+                cout << "          weight (" << i << ", " << j << ")->("
+                     << i+1 << ", " << k << "): " << at(neuron->getWeights(), k) << endl;
             }
         }
     }
+    cout << endl;
 }
 
 void Network::setInput(vector<double> input) {
@@ -118,7 +120,7 @@ void Network::setInput(vector<double> input) {
     }
 }
 
-vector<double> Network::computeOutput() {
+vector<double>& Network::computeOutput() {
     m_output.reserve(m_outputs);
     const int index = m_layers.size();
     for (int j=0; j<at(m_layers, index-2).size(); j++) {

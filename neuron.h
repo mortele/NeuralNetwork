@@ -13,6 +13,7 @@ public:
     void randomizeWeights();
     void propagateLastLayer();
     void setWeight(double weight, int index);
+    void adjustWeight(double dWeight, int index);
     void setActivationFunction(class ActivationFunction*);
     double propagateToNextLayer(int index);
     double getInput()  { return m_totalInput; }

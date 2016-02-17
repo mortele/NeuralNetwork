@@ -17,7 +17,4 @@ SinglePerceptron::SinglePerceptron(System* system) :
     }
 }
 
-vector<double> SinglePerceptron::evaluate(vector<double> input) {
-
-}
 

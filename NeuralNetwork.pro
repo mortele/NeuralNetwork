@@ -15,7 +15,12 @@ SOURCES += \
     ActivationFunctions/activationfunction.cpp \
     ActivationFunctions/noactivation.cpp \
     ActivationFunctions/perceptron.cpp \
-    LearningAlgorithms/learningalgorithm.cpp
+    LearningAlgorithms/learningalgorithm.cpp \
+    LearningAlgorithms/supervisederrorcorrection.cpp \
+    ErrorFunctions/errorfunction.cpp \
+    ErrorFunctions/stepfunction.cpp \
+    ExampleGenerators/examplegenerator.cpp \
+    ExampleGenerators/randomuniform.cpp
 
 INCLUDEPATH += /usr/local/Cellar/armadillo/6.200.4/include
 LIBS += -lblas -llapack
@@ -31,4 +36,9 @@ HEADERS += \
     ActivationFunctions/activationfunction.h \
     ActivationFunctions/noactivation.h \
     ActivationFunctions/perceptron.h \
-    LearningAlgorithms/learningalgorithm.h
+    LearningAlgorithms/learningalgorithm.h \
+    LearningAlgorithms/supervisederrorcorrection.h \
+    ErrorFunctions/errorfunction.h \
+    ErrorFunctions/stepfunction.h \
+    ExampleGenerators/examplegenerator.h \
+    ExampleGenerators/randomuniform.h
