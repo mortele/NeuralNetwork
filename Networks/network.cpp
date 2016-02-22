@@ -1,5 +1,6 @@
 #include "network.h"
 #include "../neuron.h"
+#include "../layer.h"
 #include "../ActivationFunctions/activationfunction.h"
 
 using std::vector;
@@ -9,87 +10,63 @@ using std::setw;
 using std::setprecision;
 
 
-Network::Network(System* system,
-                 int inputs,
-                 int outputs,
-                 int layers,
-                 int neuronsPerLayer) {
-
+Network::Network(System* system) {
     m_system            = system;
-    m_inputs            = inputs;
-    m_outputs           = outputs;
-    m_hiddenLayers      = layers;
-    m_neuronsPerLayer   = neuronsPerLayer;
-
-    setupLayers();
-    setWeightsForAllNeurons();
 }
 
 vector<double> Network::evaluate(vector<double> input) {
-    clearAllNeurons();
+    if (m_isReady==false) {
+        setup();
+        m_isReady = true;
+    }
+    clearNetwork();
     setInput(input);
     for (int i=1; i<m_layers.size()-1; i++) {
-        propagateLayer(i);
+        at(m_layers, i)->propagate();
     }
     return computeOutput();
 }
 
-void Network::clearAllNeurons() {
+void Network::randomizeAllWeights() {
+
+}
+
+void Network::clearNetwork() {
     for (int i=0; i<m_layers.size(); i++) {
-        for (int j=0; j<at(m_layers, i).size(); j++) {
-            at(at(m_layers, i), j)->clear();
-        }
+        at(m_layers, i)->clearLayer();
     }
 }
 
-void Network::setupLayers() {
-    m_layers.resize(m_hiddenLayers+2);
-    for (int i=0; i<m_hiddenLayers+2; i++) {
-        int jMax, neuronsInNextLayer;
-        if (i==0) {
-            jMax = m_inputs;
-            if (m_hiddenLayers==0) {
-                neuronsInNextLayer = m_outputs;
-            } else {
-                neuronsInNextLayer = m_neuronsPerLayer;
-            }
-        } else if (i==m_hiddenLayers+1) {
-            jMax                = m_outputs;
-            neuronsInNextLayer  = 0;
-        } else {
-            jMax                = m_neuronsPerLayer;
-            neuronsInNextLayer  = m_neuronsPerLayer;
-        }
+void Network::setup() {
+    cout << "network::setup" << endl;
+}
 
-        for (int j=0; j<jMax; j++) {
-            at(m_layers, i).push_back(new Neuron(m_system, neuronsInNextLayer));
-        }
+void Network::addInputLayer(int inputs) {
+    if (m_inputLayerSet==true) {
+        cout << "Error: Trying to set multiple input layers." << endl;
+        std::exit(1);
+    } else if (m_numberOfLayers==0) {
+        m_layers.push_back(new Layer(m_system, 1, 0));
+    } else if (m_numberOfLayers!=0) {
+        at(m_layers, 0) = new Layer(m_system, 1, 0);
     }
 }
 
-void Network::propagateLayer(int index) {
-    for (int j=0; j<at(m_layers, index-1).size(); j++) {
-        for (int k=0; k<at(m_layers, index).size(); k++) {
-            at(at(m_layers, index), k)->addInput(
-                        at(at(m_layers, index-1), j)->propagateToNextLayer(k));
-        }
-    }
-    for (int j=0; j<at(m_layers, index).size(); j++) {
-        at(at(m_layers, index), j)->computeTransferFunction();
+void Network::addLayer(int neurons) {
+    if (m_inputLayerSet==false) {
+        m_layers.push_back(nullptr);    // Placeholder for future input layer.
+        m_layers.push_back(new Layer(m_system));
+    } else {
+        m_layers.push_back(new Layer(m_system));
     }
 }
 
-void Network::setWeightsForAllNeurons() {
-    for (int i=0; i<m_layers.size(); i++) {
-        for (int j=0; j<(at(m_layers, i).size()); j++) {
-            if (i==0) {
-                for (int k=0; k<at(at(m_layers, i), j)->getWeights().size(); k++) {
-                    at(at(m_layers, i) ,j)->setWeight(1.0, k);
-                }
-            } else {
-                at(at(m_layers, i), j)->randomizeWeights();
-            }
-        }
+void Network::addOutputLayer(int outputs) {
+    if (m_inputLayerSet==false) {
+        m_layers.push_back(nullptr);
+        m_layers.push_back(new Layer(m_system, 0, 1));
+    } else {
+        m_layers.push_back(new Layer(m_system, 0, 1));
     }
 }
 
@@ -121,20 +98,7 @@ void Network::setInput(vector<double> input) {
 }
 
 vector<double>& Network::computeOutput() {
-    m_output.reserve(m_outputs);
-    const int index = m_layers.size();
-    for (int j=0; j<at(m_layers, index-2).size(); j++) {
-        Neuron* penultimateNeuron = at(at(m_layers, index-2), j);
-        for (int k=0; k<at(m_layers, index-1).size(); k++) {
-            Neuron* ultimateNeuron = at(at(m_layers, index-1), k);
-            ultimateNeuron->addInput(penultimateNeuron->propagateToNextLayer(k));
-        }
-    }
-    for (int j=0; j<m_outputs; j++) {
-        at(at(m_layers, index-1), j)->propagateLastLayer();
-        m_output.push_back(at(at(m_layers, index-1), j)->getOutput());
-    }
-    return m_output;
+    return at(m_layers, m_hiddenLayers+1)->getOutput();
 }
 
 

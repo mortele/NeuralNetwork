@@ -11,7 +11,7 @@ using std::cout;
 using std::endl;
 
 SupervisedErrorCorrection::SupervisedErrorCorrection() :
-    SupervisedErrorCorrection(1.0) {
+    SupervisedErrorCorrection(0.5) {
 }
 
 SupervisedErrorCorrection::SupervisedErrorCorrection(double rho) {

@@ -8,7 +8,11 @@
 using std::vector;
 
 SinglePerceptron::SinglePerceptron(System* system) :
-    Network(system, 2, 1, 0, 0) {
+        SinglePerceptron(system, 2) {
+}
+
+SinglePerceptron::SinglePerceptron(System* system, int numberOfInputs) :
+    Network(system, numberOfInputs, 1, 0, 0) {
 
     for (int i=0; i<m_layers.size(); i++) {
         for (int j=0; j<at(m_layers, i).size(); j++) {

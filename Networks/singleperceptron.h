@@ -3,8 +3,7 @@
 
 class SinglePerceptron : public Network {
 public:
-    using Network::evaluate;
-
     SinglePerceptron(class System* system);
+    SinglePerceptron(class System* system, int numberOfInputs);
 };
 

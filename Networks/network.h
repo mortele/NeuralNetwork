@@ -4,33 +4,33 @@
 #include <iomanip>
 #include "../vectorlookup.h"
 
-using std::vector;
-
-
 class Network {
 public:
-    Network(class System*, int, int, int, int);
+    Network(class System*);
 
-    virtual vector<double>          evaluate(vector<double>);
-    void                            setWeightsForAllNeurons();
+    virtual std::vector<double>     evaluate(std::vector<double>);
+    void                            randomizeAllWeights();
     void                            printNetwork();
-    void                            setInput(vector<double> input);
-    void                            clearAllNeurons();
-    void                            setupLayers();
-    void                            propagateLayer(int index);
+    void                            setInput(std::vector<double> input);
+    void                            clearNetwork();
+    void                            setup();
+    void                            addInputLayer(int inputs);
+    void                            addLayer(int neurons);
+    void                            addOutputLayer(int outputs);
     int                             getNumberOfInputs()     { return m_inputs; }
     int                             getNumberOfOutputs()    { return m_outputs; }
-    vector<double>&                 computeOutput();
-    vector<class Neuron*>&          getLayer(int index)     { return at(m_layers, index); }
-    vector<vector<class Neuron*>>&  getNeurons()            { return m_layers; }
+    std::vector<double>&            computeOutput();
 
 protected:
+    bool                            m_isReady           = false;
+    bool                            m_inputLayerSet     = false;
+    bool                            m_outputLayerSet    = false;
     int                             m_outputs           = 0;
     int                             m_inputs            = 0;
     int                             m_neuronsPerLayer   = 0;
-    int                             m_hiddenLayers      = 0;
+    int                             m_numberOfLayers    = 0;
     class System*                   m_system            = nullptr;
-    vector<double>                  m_output;
-    vector<vector<class Neuron*>>   m_layers;
+    std::vector<class Layer*>       m_layers;
+    std::vector<double>             m_output;
 };
 

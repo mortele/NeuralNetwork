@@ -20,7 +20,8 @@ SOURCES += \
     ErrorFunctions/errorfunction.cpp \
     ErrorFunctions/stepfunction.cpp \
     ExampleGenerators/examplegenerator.cpp \
-    ExampleGenerators/randomuniform.cpp
+    ExampleGenerators/randomuniform.cpp \
+    layer.cpp
 
 INCLUDEPATH += /usr/local/Cellar/armadillo/6.200.4/include
 LIBS += -lblas -llapack
@@ -41,4 +42,5 @@ HEADERS += \
     ErrorFunctions/errorfunction.h \
     ErrorFunctions/stepfunction.h \
     ExampleGenerators/examplegenerator.h \
-    ExampleGenerators/randomuniform.h
+    ExampleGenerators/randomuniform.h \
+    layer.h
